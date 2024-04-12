@@ -37,3 +37,26 @@ An intermediate server that built around Orthanc server to include several commo
 - TravisCI for unit testings
 - Sentry for Logging
 - @TODO: Appveyor
+
+# How to setup DICOMTransit:
+- Clone the repository
+- Create a virtual environment inside the cloned repository with:
+	- $ python3 -m venv dicom-env (dicom-env is what I used, you can name it anything you want)
++ Activate your virtual environment with:	
+	- $ source .../dicom-env/bin/activate
++ Deactivate your virtual environment with:
+	- $ deactivate
+- Once your virtual environment is active, download all requirements:
+	- $ pip install -r requirements.txt 	
+- Initialise the submodules with:
+	- $ git submodule init
+- Update the submodules with:
+	- $ git submodule update
+- Modify line #8 in route.py from datagator/app/auth/routes.py with:
+  - $ nano datagator/app/auth/routes.py
+  - from werkzeug.urls import url_parse ---> from urllib.parse import urlparse
++ Save the file with Ctrl+O, Enter, Ctrl+X
+- Run setup_check.py with:
+	- $ python3 setup_check.py
++ If process is already running, kill it with:
+	- $ kill "PID Number" (To find PID number, use command $ ps)
