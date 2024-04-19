@@ -60,3 +60,13 @@ An intermediate server that built around Orthanc server to include several commo
 	- $ python3 setup_check.py
 + If process is already running, kill it with:
 	- $ kill "PID Number" (To find PID number, use command $ ps)
+- If missing any other modules/packages, try:
+	- $ pip install "package-name"
+
+# How to anonymize Dicom Files:
+- Run anonymizer_driver.py with:
+	- $ python3 anonymizer_driver.py
+- Follow instructions in terminal
+
+### What does the script do?: 
+- Anonymizes patient name and patient ID of all .dcm files IN selected directory (including sub-directories) with given ID
