@@ -68,5 +68,5 @@ An intermediate server that built around Orthanc server to include several commo
 	- $ python3 anonymizer_driver.py
 - Follow instructions in terminal
 
-### What does the script do?: 
-- Anonymizes patient name and patient ID of all .dcm files IN selected directory (including sub-directories) with given ID
+### What does the anonymizer_driver.py script do?: 
+- Anonymizes patient name and patient ID of all .dcm files IN selected directory (including sub-directories) with given ID. It also creates a log file for the directory that was anonymized. The log file  is genereated automaticaly and can be found inside Anonymization_Logs/ 
