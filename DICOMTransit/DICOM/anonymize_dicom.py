@@ -16,7 +16,7 @@ def anonymize_dicom():
             print("\nError: Folder path does not exist or is invalid.\n")
             return
     else:
-        print("\nError: You must enter a valid folder path to proceed.\n")
+        print("Error: You must enter a valid folder path to proceed.\n")
         return
 
     #Makes a list of all .dcm files at file path by searching through all subdirectories 
@@ -28,7 +28,7 @@ def anonymize_dicom():
         return 
     
     #Asks user for new ID for Patient Name and Patient ID
-    new_ID = input("\nEnter the new ID for Patient Name and Patient ID: \n")
+    new_ID = input("\nEnter the new ID for the Patient Name and Patient ID you want to anonymized with: \n")
     
     #Gets confirmation from user to proceed with anonymization
     confirmation = input(f"\nAre you sure you want to anonymize all DICOM files in {folder_path} ?\nThis action cannot be undone! (Enter Yes/No): \n")
@@ -47,22 +47,28 @@ def anonymize_dicom():
         current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         log_file_path = log_directory / f"{current_time}_{folder_path.stem}_log.txt" 
         with open (log_file_path, "a") as log_file:
-            log_file.write("DICOM Anonymization Log\n")
-            log_file.write("-----------------------------------------------------------------------------------------------\n")
-            log_file.write("This log file contains information about all files that were modified during the anonymization.\n")
-            log_file.write("Each entry includes current details about the anonymized DICOM files.\n")
-            log_file.write("-----------------------------------------------------------------------------------------------\n")
-            log_file.write(f"\nAnonymization Attempt Timestamp: {current_time}\n\n")
-            for file_path in folder_path.rglob("*.dcm"):
-                try:
-                    read = pydicom.dcmread(file_path)
-                    log_file.write(f"File modified: {file_path}\n")
-                    log_file.write(f"   Changed PatientName to: {read.PatientName}\n")
-                    log_file.write(f"   Changed PatientID to: {read.PatientID}\n")
+            log_file.write(f"""DICOM Anonymization Log
+-----------------------------------------------------------------------------------------------
+This log file contains information about all files that were modified during the anonymization.
+Each entry includes current details about the anonymized DICOM files.
+-----------------------------------------------------------------------------------------------
+
+Anonymization Attempt Timestamp: {current_time}
+
+Changed PatientName to: {new_ID}
+Changed PatientID to: {new_ID}
+
+Files modified:
+""")
+            log_file_path_txt = ""
+            
+            for file_path in files:
+                try: 
+                    log_file_path_txt += f"\n{file_path}"
                 except Exception as e:
                     log_file.write(f"\nError processing DICOM file: {file_path}: {e}\n")
                     print(f"\nError: Failed to read DICOM file {file_path}: {e}\n")
-            log_file.write("\n-----------------------------------------------------------------------------------------------")
+            log_file.write(log_file_path_txt)
 
         print(f"Log file created and saved to {log_file_path}\n")
         print("Anonymization Complete!\n")
