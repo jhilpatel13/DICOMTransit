@@ -7,7 +7,7 @@ def anonymize_dicom(folder_path, new_ID):
     print("\nDICOM Anonymization:")
 
     #Checks if folder path exists
-    if not folder_path  == "":
+    if folder_path  != "" and folder_path is not None:
         folder_path = Path(folder_path)
         if not folder_path.exists() or not folder_path.is_dir():
             print("\nError: Folder path does not exist or is invalid.\n")
