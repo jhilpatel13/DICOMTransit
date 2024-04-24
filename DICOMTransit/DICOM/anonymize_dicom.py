@@ -3,11 +3,8 @@ import pydicom
 import DICOMTransit.DICOM.anonymize
 from pathlib import Path
 
-def anonymize_dicom():
-    print("\nDICOM Anonymization: \n")
-
-    #Asks user for folder path
-    folder_path = input("Enter the folder path containing DICOM files: \n")
+def anonymize_dicom(folder_path, new_ID):
+    print("\nDICOM Anonymization:")
 
     #Checks if folder path exists
     if not folder_path  == "":
@@ -26,9 +23,6 @@ def anonymize_dicom():
     if not files:
         print("\nError: No files found, make sure the folder path is correct and that it contains .dcm files.\n")
         return 
-    
-    #Asks user for new ID for Patient Name and Patient ID
-    new_ID = input("\nEnter the new ID for the Patient Name and Patient ID you want to anonymized with: \n")
     
     #Gets confirmation from user to proceed with anonymization
     confirmation = input(f"\nAre you sure you want to anonymize all DICOM files in {folder_path} ?\nThis action cannot be undone! (Enter Yes/No): \n")
@@ -59,7 +53,7 @@ Changed PatientName to: {new_ID}
 Changed PatientID to: {new_ID}
 
 Files modified:
-""")
+""")        
             log_file_path_txt = ""
             
             for file_path in files:
