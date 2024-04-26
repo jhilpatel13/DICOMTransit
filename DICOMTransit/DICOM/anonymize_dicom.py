@@ -4,8 +4,12 @@ import DICOMTransit.DICOM.anonymize
 from pathlib import Path
 
 def anonymize_dicom(folder_path, new_ID):
-    print("\nDICOM Anonymization:")
-
+    """
+    Anonymization function that anonymizes DICOM files (Patient Name, ID and Birthday) at a given directory wtih given ID
+    More fields to anonymize can be added in this function: DICOMTransit.DICOM.anonymize.DICOM_anonymize.save_as()
+    :param folder_path:
+    :param new_ID:
+    """
     #Checks if folder path exists
     if folder_path  != "" and folder_path is not None:
         folder_path = Path(folder_path)
@@ -43,19 +47,19 @@ def anonymize_dicom(folder_path, new_ID):
         with open (log_file_path, "a") as log_file:
             log_file.write(f"""DICOM Anonymization Log
 -----------------------------------------------------------------------------------------------
-This log file contains information about all files that were modified during the anonymization.
-Each entry includes current details about the anonymized DICOM files.
+This log file contains the path to  all fow level function used to retrieve elements from DICOM object that has already been loaded and return a LIST of matching element. ACCEPT PARTIAL MATCHiles that were modified during the anonymization.
+Each file listed here has their Patient Name and Patient ID anonymized to : {new_ID}
 -----------------------------------------------------------------------------------------------
 
 Anonymization Attempt Timestamp: {current_time}
 
 Changed PatientName to: {new_ID}
 Changed PatientID to: {new_ID}
+Changed PatientBirthDate to: <undefined>
 
 Files modified:
 """)        
             log_file_path_txt = ""
-            
             for file_path in files:
                 try: 
                     log_file_path_txt += f"\n{file_path}"

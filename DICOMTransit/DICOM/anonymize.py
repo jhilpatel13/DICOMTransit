@@ -1,3 +1,4 @@
+import datetime
 from DICOMTransit.DICOM.validate import DICOM_validate
 from DICOMTransit.DICOM.elements import DICOM_elements
 import logging
@@ -88,9 +89,16 @@ class DICOM_anonymize:
         success2, DICOM_updated = DICOM_elements.update_in_memory(
             DICOM_updated, "PatientName", NewID
         )
+        if not success2:
+            return False
 
+        # Additionnal field added: Anonymize PatientBirthDate with the NewID provided.
+        success3, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "PatientBirthDate", ""
+        )
+        
         # Return after encuring both anonymization process are successful.
-        if success2:
+        if success3:
             DICOM_updated.save_as(out_path)
             return True
         else:
