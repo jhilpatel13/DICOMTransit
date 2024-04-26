@@ -68,10 +68,7 @@ class DICOM_anonymize:
         DICOM file check happens at the lowest DICOM_element level.
 
         # NOTE! Expand here if you need to anonymize additional fields.
-
-        :param in_path:
-        :param NewID:
-        :param out_path:
+undefined
         :return:
         """
         success, DICOM = DICOM_validate.file(in_path)
@@ -92,11 +89,11 @@ class DICOM_anonymize:
         if not success2:
             return False
 
-        # Additionnal field added: Anonymize PatientBirthDate with the NewID provided.
+        # Additionnal field added: Anonymize PatientBirthDate to undefined.
         success3, DICOM_updated = DICOM_elements.update_in_memory(
             DICOM_updated, "PatientBirthDate", ""
         )
-        
+
         # Return after encuring both anonymization process are successful.
         if success3:
             DICOM_updated.save_as(out_path)

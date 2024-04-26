@@ -12,8 +12,8 @@ if __name__ == '__main__':
         print("\nDICOM Anonymization: \n")
         #Asks user for folder path
         folder_path = input("Enter the folder path containing DICOM files: \n").strip() or None
-    
-        #Asks user for new ID for Patient Name, Patient ID and PatientBirthDate
-        new_ID = input("\nEnter the new ID for the Patient Name, Patient ID and Patient Birthday you want to anonymized with: \n").strip() or None
+
+        #ID for Patient Name, Patient ID (Default: None)
+        new_ID = "None"
 
     anonymize_dicom(folder_path, new_ID)
