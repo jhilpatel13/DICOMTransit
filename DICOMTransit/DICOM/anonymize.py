@@ -93,13 +93,96 @@ undefined
         success3, DICOM_updated = DICOM_elements.update_in_memory(
             DICOM_updated, "PatientBirthDate", ""
         )
+        if not success3:
+            return False
+        
+        # Additionnal field added: Anonymize StudyDate to undefined.
+        success4, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "StudyDate", ""
+        )
+        if not success4:
+            return False
 
+        # Additionnal field added: Anonymize SeriesDate to undefined.
+        success5, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "SeriesDate", ""
+        )
+        if not success5:
+            return False
+
+        # Additionnal field added: Anonymize SeriesDate to undefined.
+        success6, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "AcquisitionDate", ""
+        )
+        if not success6:
+            return False
+        
+        # Additionnal field added: Anonymize ContentDate to undefined.
+        success7, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "ContentDate", ""
+        )
+        if not success7:
+            return False
+
+        # Additionnal field added: Anonymize AccessionNumber with the NewID provided.
+        success8, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "AccessionNumber", NewID
+        )
+        if not success8:
+            return False
+        
+        # Additionnal field added: Anonymize ReferringPhysicianName with the NewID provided.
+        success9, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "ReferringPhysicianName", NewID
+        )
+        if not success9:
+            return False
+        
+        # Additionnal field added: Anonymize InstitutionName with the NewID provided.
+        success10, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "InstitutionName", NewID
+        )
+        if not success10:
+            return False
+        
+        # Additionnal field added: Anonymize StationName with the NewID provided.
+        success11, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "StationName", NewID
+        )
+        if not success11:
+            return False
+        
+        """# Additionnal field added: Anonymize PerformedStationName with the NewID provided.
+        success12, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "PerformedStationName", NewID
+        )
+        if not success12:
+            return False
+        """
+        # Additionnal field added: Anonymize StudyID with the NewID provided.
+        success13, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "StudyID", NewID
+        )
+        if not success13:
+            return False
+        
+        """# Additionnal field added: Anonymize PerformedLocation with the NewID provided.
+        success14, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "PerformedLocation", NewID
+        )
+        if not success14:
+            return False
+        """
+        # Additionnal field added: Anonymize ProtocolName with the NewID provided.
+        success15, DICOM_updated = DICOM_elements.update_in_memory(
+            DICOM_updated, "ProtocolName", NewID
+        )
+        
         # Return after encuring both anonymization process are successful.
-        if success3:
+        if success15:
             DICOM_updated.save_as(out_path)
             return True
         else:
             return False
-
 
 # if __name__ is "__main__":
