@@ -46,16 +46,26 @@ def anonymize_dicom(folder_path, new_ID):
         log_file_path = log_directory / f"{current_time}_{folder_path.stem}_log.txt" 
         with open (log_file_path, "a") as log_file:
             log_file.write(f"""DICOM Anonymization Log
------------------------------------------------------------------------------------------------
-This log file contains the path to  all fow level function used to retrieve elements from DICOM object that has already been loaded and return a LIST of matching element. ACCEPT PARTIAL MATCHiles that were modified during the anonymization.
-Each file listed here has their Patient Name and Patient ID anonymized to : {new_ID}
------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+This log file contains the path to all files that were modified during the anonymization.
+Each file listed here has had their sensitive information anonymized to : {new_ID} or <undefined>
+----------------------------------------------------------------------------------------------------
 
 Anonymization Attempt Timestamp: {current_time}
 
 Changed PatientName to: {new_ID}
 Changed PatientID to: {new_ID}
 Changed PatientBirthDate to: <undefined>
+Changed StudyDate to: <undefined>
+Changed SeriesDate to: <undefined>
+Changed AcquisitionDate to: <undefined>
+Changed ContentDate to: <undefined>
+Changed AccessionNumber to: {new_ID}
+Changed ReferringPhysicianName to: {new_ID}
+Changed InstitutionName to: {new_ID}
+Changed StationName to: {new_ID}
+Changed StudyID to: {new_ID}
+Changed ProtocolName to: {new_ID}
 
 Files modified:
 """)        

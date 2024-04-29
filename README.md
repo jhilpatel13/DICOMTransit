@@ -63,14 +63,18 @@ An intermediate server that built around Orthanc server to include several commo
 - If missing any other modules/packages, try:
 	- $ pip install "package-name"
 
-# How to anonymize Dicom Files:
+### What does the anonymizer_driver.py do?: 
+- Anonymizes all sensitive information of all .dcm files IN given directory (including sub-directories) with default ID (None). 
+- It also creates a log file for the directory that was anonymized. The log file is genereated automaticaly and can be found inside Anonymization_Logs/... The log files are named in this format:
+(Year-Month-Day)_(Hour:Minute_Seconds)_(Selected directory/folder name)_log.txt"
+
+# How to anonymize Dicom Files using anonymizer_driver.py:
 - Run anonymizer_driver.py with:
 	- $ python3 anonymizer_driver.py
 - Follow instructions in terminal
 
-- Optionally: You can provided arguments for the new patient ID and patient Name like this:
-	-$ python3 anonymizer_driver.py [folder_path] [new_ID] (without brackets)
-	-NOTE that if no argument is given for new ID, by default the ID will be blank or ""
-
-### What does the anonymizer_driver.py script do?: 
-- Anonymizes patient name and patient ID of all .dcm files IN selected directory (including sub-directories) with given ID. It also creates a log file for the directory that was anonymized. The log file  is genereated automaticaly and can be found inside Anonymization_Logs/... The log files are named in this format: (Year-Month-Day)_(Hour:Minute_Seconds)_(Selected directory/folder name)_log.txt"
+- Optionally: You can launch the script by provided arguments like this:
+	-$ python3 anonymizer_driver.py [folder_path] [new_ID] (Without brackets)
+	-NOTE that if no argument is given for new ID, by default the ID will be "None"
+	-You can also skip the confirmation question like this:
+	-$ echo "yes" | python3 anonymizer_driver.py [folder_path] [new_ID] (Use with caution, as anonymization is permanent) 
