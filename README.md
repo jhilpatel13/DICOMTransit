@@ -74,7 +74,7 @@ An intermediate server that built around Orthanc server to include several commo
 - Follow instructions in terminal
 
 - Optionally: You can launch the script by provided arguments like this:
-	-$ python3 anonymizer_driver.py [folder_path] [new_ID] (Without brackets)
--NOTE that if no argument is given for new ID, by default the ID will be "None"
--You can also skip the confirmation question like this:
-	-$ echo "yes" | python3 anonymizer_driver.py [folder_path] [new_ID] (Use with caution, as anonymization is permanent) 
+	- $ python3 anonymizer_driver.py [folder_path] [new_ID] (Without brackets)
+- NOTE that if no argument is given for new ID, by default the ID will be "None"
+- You can also skip the confirmation question like this:
+	- $ echo "yes" | python3 anonymizer_driver.py [folder_path] [new_ID] (Use with caution, as anonymization is permanent) 
