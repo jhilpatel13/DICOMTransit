@@ -1,5 +1,4 @@
 import datetime
-import pydicom
 import DICOMTransit.DICOM.anonymize
 from pathlib import Path
 
@@ -10,7 +9,7 @@ def anonymize_dicom(folder_path, new_ID):
     :param folder_path:
     :param new_ID:
     """
-    #Checks if folder path exists
+    # Checks if folder path exists
     if folder_path  != "" and folder_path is not None:
         folder_path = Path(folder_path)
         if not folder_path.exists() or not folder_path.is_dir():
@@ -20,7 +19,7 @@ def anonymize_dicom(folder_path, new_ID):
         print("Error: You must enter a valid folder path to proceed.\n")
         return
 
-    #Makes a list of all .dcm files at file path by searching through all subdirectories 
+    # Makes a list of all .dcm files at file path by searching through all subdirectories 
     files = [str(file) for file in folder_path.rglob("*.dcm")]
     
     #Checks if files list is valid
@@ -28,19 +27,19 @@ def anonymize_dicom(folder_path, new_ID):
         print("\nError: No files found, make sure the folder path is correct and that it contains .dcm files.\n")
         return 
     
-    #Gets confirmation from user to proceed with anonymization
+    # Gets confirmation from user to proceed with anonymization
     confirmation = input(f"\nAre you sure you want to anonymize all DICOM files in {folder_path} ?\nThis action cannot be undone! (Enter Yes/No): \n")
     
-    #Anonymizes the files with provided ID
+    # Anonymizes the files with provided ID
     if confirmation.lower() == "yes" or confirmation.lower() == "y":
         print("\nAnonymizing files...\n")
         DICOMTransit.DICOM.anonymize.DICOM_anonymize.filelist(files, new_ID)
         
-        #Creates log directory if none existant
+        # Creates log directory if none existant
         log_directory = Path("Anonymization_Logs")
         log_directory.mkdir(exist_ok=True)
         
-        #Creates log file with each DICOM files modified from folder path and saves it at log directory
+        # Creates log file with each DICOM files modified from folder path and saves it at log directory
         print(f"\nCreating log file...\n")
         current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         log_file_path = log_directory / f"{current_time}_{folder_path.stem}_log.txt" 
