@@ -66,7 +66,7 @@ An intermediate server that built around Orthanc server to include several commo
 ### What does the anonymizer_driver.py do?: 
 - Anonymizes all sensitive information of all .dcm files IN given directory (including sub-directories) with default ID (None). 
 - It also creates a log file for the directory that was anonymized. The log file is genereated automaticaly and can be found inside Anonymization_Logs/... The log files are named in this format:
-(Year-Month-Day)_(Hour:Minute_Seconds)_(Selected directory/folder name)_log.txt"
+- (Year-Month-Day)_(Hour:Minute_Seconds)_(Selected directory/folder name)_log.txt"
 
 # How to anonymize Dicom Files using anonymizer_driver.py:
 - Run anonymizer_driver.py with:
@@ -75,6 +75,6 @@ An intermediate server that built around Orthanc server to include several commo
 
 - Optionally: You can launch the script by provided arguments like this:
 	-$ python3 anonymizer_driver.py [folder_path] [new_ID] (Without brackets)
-	-NOTE that if no argument is given for new ID, by default the ID will be "None"
-	-You can also skip the confirmation question like this:
+-NOTE that if no argument is given for new ID, by default the ID will be "None"
+-You can also skip the confirmation question like this:
 	-$ echo "yes" | python3 anonymizer_driver.py [folder_path] [new_ID] (Use with caution, as anonymization is permanent) 
