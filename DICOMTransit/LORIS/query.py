@@ -53,7 +53,8 @@ class LORIS_query:
 
         logger.debug(f"Getting LORIS endpoint: {endpoint} at")
         url = config_get("LORISurl")
-        updatedurl = urljoin(url, endpoint)
+        if url is not None:
+            updatedurl = urljoin(url.url, endpoint)
         logger.debug(updatedurl)
         HEADERS = {"Authorization": "token {}".format(token)}
 
@@ -77,8 +78,10 @@ class LORIS_query:
         logger.debug("Posting data to: " + endpoint)
         logger.debug("Data: " + data)
         url = config_get("LORISurl")
-        updatedurl = urljoin(url, endpoint)
-        updatedurl = url + endpoint
+        #change url to url.url
+        if url is not None:
+            updatedurl = urljoin(url.url, endpoint)
+            updatedurl = url.url + endpoint
 
         HEADERS = {"Authorization": "token {}".format(token)}
 
@@ -103,8 +106,8 @@ class LORIS_query:
         logger.debug("Data: " + data)
 
         url = config_get("LORISurl")
-
-        updatedurl = url + endpoint
+        if url is not None:
+            updatedurl = url.url + endpoint
 
         HEADERS = {"Authorization": "token {}".format(token)}
 
