@@ -51,7 +51,7 @@ class DICOM_anonymize:
         return exception_files
 
     @staticmethod
-    def save(file_path: str) -> bool:
+    def save(file_path: str, NewID: str) -> bool:
         """
         Anonymize the DICOMS to remove any identifiable information. this overwrites the original file.
         DICOM file check happens at the lowest DICOM_element level. Added LORIS's ID anonymization functionality
@@ -59,18 +59,8 @@ class DICOM_anonymize:
         :param NewID: the new ID used to anonymize the subjects. It will overwrite patient names and IDs
         :return:
         """
-        dicom_file = pydicom.dcmread(file_path)
-        patient_sex = dicom_file.PatientSex
-        patient_birth_date = dicom_file.PatientBirthDate
-        parsed_patient_birth_date = str(datetime.datetime.strptime(patient_birth_date,'%Y%m%d').date())
-        gender_mapping = {'M': 'Male', 'F': 'Female'}
-        mapped_patient_sex = gender_mapping.get(patient_sex, 'Unknown')
-
-        success, DCCID, PSCID = DICOMTransit.LORIS.API.create_candidate(
-            "loris", parsed_patient_birth_date, mapped_patient_sex 
-        )
-
-        save_as_success = DICOM_anonymize.save_as(file_path, PSCID, file_path)
+    
+        save_as_success = DICOM_anonymize.save_as(file_path, NewID, file_path)
         return save_as_success
 
     @staticmethod
@@ -130,7 +120,7 @@ undefined
             if not success5:
                 return False
 
-            # Additionnal field added: Anonymize SeriesDate to undefined.
+            # Additionnal field added: Anonymize AcquisitionDate to undefined.
             success6, DICOM_updated = DICOM_elements.update_in_memory(
                 DICOM_updated, "AcquisitionDate", ""
             )
@@ -179,6 +169,8 @@ undefined
             if not success12:
                 return False
             """
+            
+            """
             # Additionnal field added: Anonymize StudyID with the NewID provided.
             success13, DICOM_updated = DICOM_elements.update_in_memory(
                 DICOM_updated, "StudyID", ""
@@ -186,7 +178,7 @@ undefined
             if not success13:
                 return False
             
-            """# Additionnal field added: Anonymize PerformedLocation with the NewID provided.
+            # Additionnal field added: Anonymize PerformedLocation with the NewID provided.
             success14, DICOM_updated = DICOM_elements.update_in_memory(
                 DICOM_updated, "PerformedLocation", NewID
             )
@@ -211,6 +203,7 @@ undefined
             print(f"file:{in_path} is already anonymized")
 
     @staticmethod
+    # Function that calculates if the patientAge is accurate, currently NOT used in anonymizer_driver.py
     def verify_patient_age(patient_age, patient_birth_date, patient_study_date):
         if (patient_birth_date is not None and patient_birth_date != '') and (patient_study_date is not None and patient_study_date != ''):
             unit = patient_age[-1]
